@@ -20,6 +20,7 @@ export class AuthService {
 
     if (user && bcrypt.compareSync(password, user.password)) {
       return {
+        id: user._id,
         username: user.username,
         email: user.email,
         password: undefined,
@@ -35,6 +36,12 @@ export class AuthService {
     if (existingUser) throw new ConflictException('Email already exists.');
 
     const newUser = new this.userModel(registerDto);
-    return newUser.save();
+    const createdUser = await newUser.save();
+    return {
+      id: createdUser._id,
+      username: createdUser.username,
+      email: createdUser.email,
+      password: undefined,
+    };
   }
 }
