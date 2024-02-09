@@ -8,8 +8,13 @@ import { Poll } from './schemas/polls.schema';
 export class PollsService {
   constructor(@InjectModel(Poll.name) private pollModel: Model<Poll>) {}
 
-  readAllPolls() {
-    return this.pollModel.find();
+  async getAllPolls() {
+    return await this.pollModel.find();
+  }
+
+  async getOnePoll(id: string) {
+    const poll = await this.pollModel.findById(id);
+    return poll;
   }
 
   async createPoll(pollDto: PollDto) {
@@ -25,7 +30,7 @@ export class PollsService {
     };
 
     const newPoll = new this.pollModel(poll);
-    const createdPoll = newPoll.save();
+    const createdPoll = await newPoll.save();
     return createdPoll;
   }
 

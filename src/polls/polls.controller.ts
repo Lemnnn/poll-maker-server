@@ -15,8 +15,13 @@ export class PollsController {
   constructor(private readonly pollsService: PollsService) {}
 
   @Get()
-  readAllPolls() {
-    return this.pollsService.readAllPolls();
+  getAllPolls() {
+    return this.pollsService.getAllPolls();
+  }
+
+  @Get(':id')
+  getOnePoll(@Param('id') id: string) {
+    return this.pollsService.getOnePoll(id);
   }
 
   @Post()
