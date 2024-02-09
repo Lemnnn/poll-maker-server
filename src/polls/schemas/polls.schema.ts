@@ -4,8 +4,9 @@ import mongoose, { HydratedDocument } from 'mongoose';
 export type PollDocument = HydratedDocument<Poll>;
 
 type pollOption = {
+  id: number;
   title: string;
-  votes: number;
+  votes: { type: number; default: 0 };
 };
 
 @Schema()
